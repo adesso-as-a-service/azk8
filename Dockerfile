@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/azure-cli:latest
 
-ARG KUSTOMIZE_VERSION="3.6.1"
-ARG HELM_VERSION="3.2.4"
+ARG KUSTOMIZE_VERSION="3.8.2"
+ARG HELM_VERSION="3.3.1"
 ARG HELM_PLUGIN_VERSION="0.0.7"
 
 RUN apk add --update -t deps \
@@ -10,9 +10,7 @@ RUN apk add --update -t deps \
       git \
       openssl
 
-RUN curl -Ls https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl \
-      -o /usr/local/bin/kubectl \
- && chmod +x /usr/local/bin/kubectl
+RUN az aks install-cli
 
 RUN curl -Ls --remote-name https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz \
  && tar -xzf kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz -C /usr/local/bin \
