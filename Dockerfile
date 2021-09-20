@@ -9,6 +9,8 @@ RUN apk add --update -t deps \
       curl \
       git \
       openssl
+      
+RUN apk add --update coreutils && rm -rf /var/cache/apk/*
 
 RUN az aks install-cli
 
